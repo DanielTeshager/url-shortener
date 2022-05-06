@@ -1,0 +1,339 @@
+:root{
+    --black : #000000;
+    --loving-blue: #2BD0D0;
+    --basic-white: #EFF1F7;
+    --basic-gray: #9E9AA8;
+    --light-purple: #4B3F6B;
+    --dark-purple: #3A3054;
+    --loving-black: #34313D;
+
+}
+/* utils */
+.hide{
+    transition: opacity 1s ease-out;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+.night{
+    /* From https://css.glass */
+    background: rgb(1 2 24 / 59%);
+backdrop-filter: blur(10.3px);
+-webkit-backdrop-filter: blur(10.3px);
+}
+.day{
+    background: rgba(158, 157, 157, 0.59);
+    backdrop-filter: blur(10.3px);
+    -webkit-backdrop-filter: blur(10.3px);
+}
+.down{
+    transform: rotate(180deg);
+    transition: all .5s ease-out;
+}
+.show{
+    display: block;
+}
+/* reset */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+/* set default font-color as white */
+body{
+    color: var(--white);
+    font-family: inter, san-serif;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+.hero{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    position: relative;
+}
+.hero-image{
+    background-image: url(../images/illustration-working.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 11rem;
+    margin-left: 3rem;
+}
+.hero-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 2rem 1rem;
+}
+.hero-text .hero-title{
+    font-size: 2rem;
+    font-weight: 700;
+}
+.hero-text .hero-content{
+    font-size: .8rem;
+    font-weight:300;
+    line-height: 1.2;
+    max-width: 50rem;
+    color: var(--basic-gray);
+    font-family: poppins, sans-serif;
+}
+.hero-text .hero-button button{
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--basic-white)
+}
+.btn-primary{
+    background-color: var(--loving-blue);
+    color: var(--white);
+    border: none;
+    padding: .5rem 1rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all .5s ease-out;
+}
+.hero .shortner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-image: url(../images/bg-shorten-mobile.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 8rem;
+    background-color: var(--dark-purple);
+    width: 90vw;
+    margin: 0 auto;
+    border-radius: 0.5rem;
+    position: relative;
+    bottom: -50%;
+}
+.form-control{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.shortner .form-control input, 
+.shortner .form-control button{
+    border: none;
+    min-width: 100%;
+    margin: 0 auto;
+    height: 2rem;
+    box-sizing: border-box;
+    padding: 0 1rem;
+    border-radius: .2rem;
+}
+.btn-secondary{
+    background-color: var(--loving-blue);
+    color: var(--basic-white);
+}
+.container{
+padding: 2rem;
+}
+main{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    overflow-y:hidden;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: space-between;
+    background-color: rgba(0 0 0 / .3);
+    /* padding: 2rem; */
+}
+
+.quote{
+    position: relative;
+    width: fit-content;
+    padding-right: 1rem;
+}
+.quote, .quote-author{
+    font-size: .8rem;
+    margin-bottom: 1rem;
+    
+}
+.quote-author{
+    font-weight: bold;
+}
+.refresh-icon{
+    position: absolute;
+    right: -1rem;
+    cursor: pointer;
+}
+.time-container{
+    display: flex;
+    flex-direction: column;
+}
+.time-display{
+    display: flex;
+    align-items: baseline;
+}
+.time-display .zone{
+    font-size: .8rem;
+    margin-left: .5rem;
+    font-weight: 300;
+    letter-spacing: .2rem;
+}
+.greetings h2{
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: .2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.time-display h1{
+    font-size: 5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+.location{
+    margin-top: -1rem;
+}
+.location p{
+    font-size: 1.2rem;
+    font-weight: 400;
+    letter-spacing: .2rem;
+    text-transform: uppercase;
+    padding-top: 0.5rem;
+}
+
+.clock{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.more-less{
+    color: var(--gray);
+    letter-spacing: .2rem;
+    text-transform: uppercase;
+    background-color: var(--white);
+    width: 14ch;
+    padding: 0.5rem;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 1rem;
+    padding: 3px 0;
+    margin-top: 3rem;
+}
+.more-less-icon{
+    height: 40px;
+    height: 40px;
+    margin-right: .2rem;
+
+}
+
+.details{
+    padding: 2rem 0;
+    overflow: hidden;
+    transition: all 1s ease-out;
+    position: relative;
+    bottom: -2rem;
+}
+.timezone-days-of-year, .days-of-year, .days-of-week, .week-number{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    text-transform: uppercase;
+}
+.timezone-text, .days-of-year-text, .days-of-week-text, .week-number-text{
+    font-size: .8rem;
+    font-weight: 300;
+}
+
+/* SMARTPHONES PORTRAIT
+@media only screen and (min-width: 300px) {
+
+
+} */
+
+/* SMARTPHONES LANDSCAPE */
+/* @media only screen and (min-width: 480px) {
+
+
+} */
+
+/* TABLETS PORTRAIT */
+@media only screen and (min-width: 768px) {
+    .details{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+    }
+    .timezone-details, .days-of-week-number{
+        display: flex;
+        flex-direction: column;
+      
+    }
+    .timezone-days-of-year, .days-of-year, .days-of-week, .week-number{
+        display: flex;
+        flex-direction: column;
+       
+    }
+    .timezone-value, .days-of-year-value, .days-of-week-value, .week-number-value{
+        font-size: 2rem;
+    }
+    .container{
+        padding: 2rem 4rem;
+    }
+    .quote-container{
+        width: 50ch;
+    }
+}
+
+
+/* TABLET LANDSCAPE / DESKTOP */
+@media only screen and (min-width: 1024px) {
+
+    .time-container{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: end;
+    }
+    .timezone-details, .days-of-week-number {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin-bottom: 2rem;
+    }
+    #time{
+        font-size: 20vw;
+    }
+    .greetings h2{
+        margin-bottom: -2.5rem;
+    }
+    .quote-container{
+        width: 70ch;
+    }
+    .quote-text, .quote-author{
+        font-size: 1rem;
+        font-weight: 300;
+    }
+    .details{
+        /* From https://css.glass */
+        backdrop-filter: blur(10.3px);
+        -webkit-backdrop-filter: blur(10.3px);
+    }
+
+}   
