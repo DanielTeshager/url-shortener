@@ -175,7 +175,12 @@ header .main-nav{
     flex-direction: column;
     gap: .5rem;
 }
-
+.form-control button{
+    color: var(--basic-white);
+}
+.form-control button:hover{
+    color: var(--dark-purple);
+}
 /* loader */
 .loader{
     display: flex;
@@ -435,6 +440,16 @@ width: 100%;
         display: flex;
         justify-content: space-between;
         width: 100%;
+    }
+    ul.main-nav li{
+        cursor: pointer;
+    }
+    ul.main-nav li a:hover{
+        color: var(--loving-black);
+    }
+    .footer-link-list li:hover{
+        color: var(--basic-white);
+        cursor: pointer;
     }
     ul.main-nav li a{
         color: var(--basic-gray);

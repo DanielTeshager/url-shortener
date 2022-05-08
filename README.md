@@ -1,4 +1,4 @@
-# Clock App Responsive Website
+# Shortly URL Shortner App Responsive Website
 
 
 ## Table of contents
@@ -16,22 +16,25 @@ Users should be able to:
 
 - View the optimal layout for the site depending on their device's screen size
 - Toggle menu on and off on mobile devices 
-- day and night mode
-- clock theme
-- variable greeting messages
-- locale support
+- Convert a URL to a shortened URL
+- View the original URL
+- Abilit to copy the shortened URL to clipboard
+- Store the shortened URL to local storage
+- Detect if the URL entered is valid
+- Auto dismiss the alert message after 3 seconds
+- Loading indicator while fetching the data
 
 
 
 ### Screenshot
 
-![](./assets/clockApp3.gif)
+![](./images/shortly3.gif)
 
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/DanielTeshager/js_clock)
-- Live Site URL: [Add live site URL here](https://627409a376771a5a42a8ed05--relaxed-bombolone-762743.netlify.app/)
+- Solution URL: [Add solution URL here](https://github.com/DanielTeshager/url-shortner)
+- Live Site URL: [Add live site URL here](https://6277edca3b8ea06c0f6de6f8--unique-cendol-8a6653.netlify.app/)
 ### Built with
 - HTML
 - CSS custom properties
@@ -41,7 +44,8 @@ Users should be able to:
 - JavaScript
 
 ### Continued development
-I'll be working on this project in the future. My goal is to refactor the code and make it more modular. I'll improve the look and feel of the site. I'll also add dynamic wallpapers and quotes to the site.
+My goal is to refactor the code and make it more modular. I'll improve the look and feel of the site. 
+
 
 - Twitter - [@danteshager](https://www.twitter.com/danteshager)
 
