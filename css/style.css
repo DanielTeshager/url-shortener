@@ -178,6 +178,45 @@ header .main-nav{
     background-color: var(--loving-blue);
     color: var(--basic-white);
 }
+
+.url-cards{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 4rem;
+}
+
+.url-card{
+    display: flex;
+    width: 100%;
+    padding: 1rem 1rem;
+    justify-content: space-between;
+    background: white;
+    border-radius: 0.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.url-card p.url{
+    padding-left: 1rem;
+}
+.short-url-copy{
+    padding-top: 1rem;
+    padding-left: 1rem;
+    display: flex;
+    gap:1rem;
+    flex-direction: column;
+    border-top: 1px solid var(--basic-gray);
+}
+.short-url-copy p{
+    color: var(--loving-blue);
+}
+.short-url-copy button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+}
+
 .advanced{
     text-align: center;
 }
@@ -423,6 +462,7 @@ width: 100%;
     }
     .hero .shortner{
         width: 100%;
+        background-image: url(../images/bg-shorten-desktop.svg);
         /* padding: 0 8rem; */
     }
     .shortner-container{
@@ -431,6 +471,43 @@ width: 100%;
     main{
         width: 100%;
         padding: 2rem 8rem;
+    }
+    .url-cards{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 4rem;
+    }
+    .btn-secondary{
+        background-color: var(--loving-blue);
+        color: var(--basic-white);
+        padding: 0.5rem 1rem;
+        border: none;
+    }
+    .short-url-copy{
+        display: flex;
+        gap:1rem;
+        flex-direction: row;
+        border: none;
+        align-items: baseline;
+    }
+
+    .url-card{
+        display: flex;
+        width: 100%;
+        padding: 1rem 2rem;
+        justify-content: space-between;
+        background: white;
+        border-radius: .5rem;
+        flex-direction: row;
+        align-items: baseline;
+    }
+    .url-card p.url{
+        color: black;
+    }
+    .url-card p{
+        color: var(--loving-blue);
     }
     .advanced .advanced-content {
         max-width: 50ch;
