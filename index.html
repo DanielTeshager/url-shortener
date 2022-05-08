@@ -24,7 +24,7 @@
     </div>
   </div>
 
-<div class="header-container hide">
+<div class="header-container">
   <div class="logo-nav">
     <ul class="main-nav">
       <li>
@@ -71,7 +71,7 @@
   <div class="shortner">
     <div class="form-control">
       <input type="text" placeholder="Enter URL to shorten" class="url-input">
-    <button class="btn btn-secondary">
+    <button class="btn btn-secondary shorten-btn">
       Shorten it! &#8594; 
     </button>
     </div>
@@ -80,46 +80,16 @@
 </section>
 <main>
 <div class="urls">
+  <div class="loader hide">
+    <h2>
+      Loading...
+    </h2>
+  </div>
+  <div class="error-message">
+
+  </div>
   <div class="url-cards">
-    <div class="url-card">
-      <p class="url">
-        https://www.google.com
-      </p>
-      <div class="short-url-copy">
-        <p class="short-url">
-          https://www.google.com
-        </p>
-        <button class="btn btn-secondary copy-btn">
-          Copy
-        </button>
-      </div>
-  </div>
-  <div class="url-card">
-    <p class="url">
-      https://www.google.com
-    </p>
-    <div class="short-url-copy">
-      <p class="short-url">
-        https://www.google.com
-      </p>
-      <button class="btn btn-secondary copy-btn">
-        Copy
-      </button>
-    </div>
-</div>
-<div class="url-card">
-  <p class="url">
-    https://www.google.com
-  </p>
-  <div class="short-url-copy">
-    <p class="short-url">
-      https://www.google.com
-    </p>
-    <button class="btn btn-secondary copy-btn">
-      Copy
-    </button>
-  </div>
-</div>
+
         <!-- url-card-end -->
 </div>
 <!-- end urls -->

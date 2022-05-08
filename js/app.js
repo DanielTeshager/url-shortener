@@ -1,126 +1,201 @@
-const more_less_btn = document.querySelector('.more-less');
-const details = document.querySelector('.details');
-const more_less_icon = document.querySelector('.more-less-icon');
-const more_less_text = document.querySelector('.more-less-text');
-const quote_container = document.querySelector('.quote-container');
-const time_h1 = document.querySelector('#time');
-const timezone_span = document.querySelector('#timezone');
-const location_text = document.querySelector('.location-text');
-const greetings_text = document.querySelector('.greetings-text');
-const day_night_icon = document.querySelector('.day-night-icon img');
-const refreh_quote = document.querySelector('.refresh-icon img');
-const timezone_value = document.querySelector('.timezone-value');
-const days_of_year_value = document.querySelector('.days-of-year-value');
-const days_of_week_value = document.querySelector('.days-of-week-value');
-const week_number_value = document.querySelector('.week-number-value');
-const body = document.querySelector('body');
-//handle refresh quote
-refreh_quote.addEventListener('click', () => {
-    fetchQuote();
+const hamburger_icon = document.querySelector('.hamburger-icon');
+const header_container = document.querySelector('.header-container'); 
+const url_input = document.querySelector('.url-input');
+const shorten_btn = document.querySelector('.shorten-btn');
+const url_cards = document.querySelector('.url-cards');
+const loader = document.querySelector('.loader');
+const error_message = document.querySelector('.error-message');
+const short_url = document.querySelector('.short-url');
+const copy_btn = document.querySelector('.copy-btn');
+
+//remove hide class from header container if displayed on wide screen
+//get screen width
+function getScreenWidth() {
+    return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+}
+
+(function () {
+    if (getScreenWidth() > 768) {
+        header_container.classList.remove('hide');
+    }
+})();
+
+
+
+// url_cards click handler
+url_cards.addEventListener('click', (e) => {
+
+    if (e.target.classList.contains('copy-btn')) {
+        const url = e.target.parentElement.querySelector('.short-url').innerText;
+        copyToClipboard(url);
+        let button = e.target;
+        button.innerText = 'Copied!';
+        // change button color curstom property name --light-purple
+        button.style.backgroundColor = 'var(--light-purple)';
+
+    }
+}
+);
+
+//url object
+var urls = [];
+
+var urlObj = {
+    longurl: '',
+    shorturl:'',
+}
+
+// #API TOCKEN
+// #7OeBgXUQUyxqkrqpPWiKlnEToPvsRS3ShQBxDwOUSQtKAPW2U7iIcckAwIWW
+
+//copy url to clipboard
+function copyToClipboard(element) {
+    var input_element = document.createElement('input');
+    input_element.value = element;
+    document.body.appendChild(input_element);
+    input_element.select();
+    document.execCommand('copy');
+    document.body.removeChild(input_element);
+}
+//when copy button is clicked copy short url to clipboard
+
+
+//toggle header-container when hamburger icon is clicked
+hamburger_icon.addEventListener('click', () => {
+    //toggle header-container using css display property
+    if(header_container.style.display === 'none') {
+        header_container.style.display = 'block';
+    }else
+    {
+        header_container.style.display = 'none';
+    }
 });
 
-
-// show/hide .details when more_less_btn is clicked
-more_less_btn.addEventListener('click', function() {
+// fetch tinyurl api and display the result
+shorten_btn.addEventListener('click', () => {
+//return if url is not valid
+    if (!checkUrl(url_input.value)) {
+        showErrorMessage('Please enter a valid url');
+        // focus on the input field
+        url_input.focus();
+        return;
+    }
+    // show loader
+    loader.classList.remove('hide');
+let body = {
+    url: `${url_input.value}`,
+    domain: `tiny.one`
+  }
   
-    // console.log(more_less_icon_img);
-    if (details.classList.contains('hide')) {   
-        details.classList.remove('hide');
-        more_less_icon.classList.add('down');
-        more_less_text.innerHTML = 'Less';
-        quote_container.classList.add('hide');  // hide quote container
-        // scroll to top of page
-        window.scrollTo(0, document.body.scrollHeight);
-    }else {
-        details.classList.add('hide');
-        more_less_icon.classList.remove('down');
-        more_less_text.innerHTML = 'More';
-        quote_container.classList.remove('hide');  // show quote container
-        // scroll to the top of the page
-        window.scrollTo(0, 0);
-        // window.scrollTo(0, details.offsetTop + details.offsetHeight);
-    };
+  fetch(`https://api.tinyurl.com/create`, {
+      method: `POST`,
+      headers: {
+        accept: `application/json`,
+        authorization: `Bearer 7OeBgXUQUyxqkrqpPWiKlnEToPvsRS3ShQBxDwOUSQtKAPW2U7iIcckAwIWW`,
+        'content-type': `application/json`,
+      },
+      body: JSON.stringify(body)
+    })
+    .then(response => {
+      if (response.status != 200) throw `There was a problem with the fetch operation. Status Code: ${response.status}`;
+      return response.json()
+      //hide loader
+    })
+    .then(data => {
+        loader.classList.add('hide');
+        const template = `
+        <div class="url-card">
+        <p class="url">
+          ${url_input.value}
+        </p>
+        <div class="short-url-copy">
+          <p class="short-url">
+            ${data.data.tiny_url}
+          </p>
+          <button class="btn btn-secondary copy-btn">
+            Copy
+          </button>
+        </div>
+    </div>`;
+    url_cards.innerHTML += template;
+    //populate urls array
+    populateUrls(data.data.tiny_url, url_input.value);
+    // clean input field
+    url_input.value = '';
+
+    })
+    .catch(error => {
+        console.error(error)
+        //create error message
+        showErrorMessage('There was a problem with the fetch operation. Please try again later.');
+
     });
+}
+);
 
-    // show time every second
-   
-    //show time hour : second
-    function showTime() {
-        const time = new Date();
-        const hour = time.getHours();
-        const minute = time.getMinutes();
-        // show time in #time with zero padding
-        time_h1.innerHTML = `${hour < 10 ? `0${hour}` : hour}:${minute < 10 ? `0${minute}` : minute}`;
-        // show time in #time
-        updateGreetings(hour);
+
+// check if url is valid
+function checkUrl(url) {
+    if (url.includes('http://') || url.includes('https://')) {
+        return true;
     }
-
-    function updateGreetings(hour) {
-        if (hour >= 0 && hour < 12) {
-            greetings_text.innerHTML = 'Good Morning';
-            day_night_icon.src = './assets/desktop/icon-sun.svg';
-            body.style.backgroundImage = 'url(./assets/desktop/bg-image-daytime.jpg)';
-            details.classList.remove('night');
-            details.classList.add('day');
-        } else if (hour >= 12 && hour < 18) {
-            greetings_text.innerHTML = 'Good Afternoon';
-            // day_night_icon.src = './assets/desktop/icon-sun.svg';
-            details.classList.add('day');
-        } else if (hour >= 18 && hour < 24) {
-            greetings_text.innerHTML = 'Good Evening';
-            day_night_icon.src = './assets/desktop/icon-moon.svg';
-            body.style.backgroundImage = 'url(./assets/desktop/bg-image-nighttime.jpg)';
-            details.classList.add('night');
-            details.classList.remove('day');
-        }
-
+    else {
+        return false;
     }
+}
 
-    // fetch quote of the day
-    function fetchQuote() {
-        fetch('https://api.kanye.rest/')
-        .then(response => response.json())
-        .then(data => {
-            // console.log(data);
-            const quote = data.quote;
-            const author = 'Kanye West';
-            const quote_text = document.querySelector('.quote-text');
-            const quote_author = document.querySelector('.quote-author');
-            quote_text.innerHTML = quote;
-            quote_author.innerHTML = author;
-        });
+// show error message for 3 seconds
+function showErrorMessage(message) {
+    error_message.innerHTML = `<p>${message}</p>`;
+    error_message.classList.remove('hide');
+    setTimeout(() => {
+        error_message.classList.add('hide');
+    }, 3000);
+
+    //remoe loader
+    loader.classList.add('hide');
+}
+
+function populateUrls(url, longurl) {
+    urlObj.longurl = longurl;
+    urlObj.shorturl = url;
+    urls.push(urlObj);
+    console.log(urls);
+
+    //update local storage
+    localStorage.setItem('urls', JSON.stringify(urls));
+}
+
+// retrieve urls from local storage
+function getUrls() {
+    if (localStorage.getItem('urls')) {
+        urls = JSON.parse(localStorage.getItem('urls'));
     }
+    return urls;
+}
 
-
-    document.addEventListener('DOMContentLoaded', function() {
-        setInterval(showTime, 1000);
-        // show timezone
-        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        // show timezone in #timezone
-        timezone_span.innerHTML = timezone;
-        timezone_value.innerHTML = timezone;
-        //show location
-        const location = timezone.split('/')[1];
-        location_text.innerHTML = `IN ${location}`;
-        
-        //calculate day of year in days
-        const today = new Date();
-        const start = new Date(today.getFullYear(), 0, 0);
-        const diff = today - start;
-        const oneDay = 1000 * 60 * 60 * 24;
-        const day = Math.floor(diff / oneDay);
-        //show day of year in days
-        days_of_year_value.innerHTML = day;
-
-        //calculate day of week
-        const day_of_week = today.getDay();
-        //show day of week
-        days_of_week_value.innerHTML = day_of_week;
-
-        //calculate week number
-        const week_number = Math.floor((day - 1) / 7) + 1;
-        //show week number
-        week_number_value.innerHTML = week_number;
-
-    
+//display urls in the url-cards
+function displayUrls() {
+    let urls = getUrls();
+    let template = '';
+    urls.forEach(url => {
+        template += `
+        <div class="url-card">
+        <p class="url">
+            ${url.longurl}
+        </p>
+        <div class="short-url-copy">
+            <p class="short-url">
+                ${url.shorturl}
+            </p>    
+            <button class="btn btn-secondary copy-btn">
+                Copy
+            </button>
+        </div>
+    </div>`;
     });
+    url_cards.innerHTML = template;
+}
+
+//display urls on page load
+displayUrls();

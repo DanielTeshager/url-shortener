@@ -42,6 +42,17 @@ backdrop-filter: blur(10.3px);
     text-decoration: none;
     list-style: none;
 }
+.btn, button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+input:focus{
+    outline: 1px solid orangered;
+}
+button:hover, .btn:hover{
+    color: var(--basic-gray);
+}
 /* set default font-color as white */
 body{
     color: var(--white);
@@ -64,6 +75,7 @@ header .logo{
 header .header-container{
     background: rebeccapurple;
     padding: 2rem 4rem;
+    border-radius: 0.5rem;
 }
 .main-nav li a{
     color: white;
@@ -164,6 +176,26 @@ header .main-nav{
     gap: .5rem;
 }
 
+/* loader */
+.loader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loader h2{
+    text-align: center;
+}
+.error-message{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.error-message p{
+    font-size: 1rem;
+    font-weight: 500;
+    color: red; 
+}
+
 .shortner .form-control input, 
 .shortner .form-control button{
     border: none;
@@ -199,6 +231,7 @@ header .main-nav{
 }
 .url-card p.url{
     padding-left: 1rem;
+    overflow-wrap: break-word;
 }
 .short-url-copy{
     padding-top: 1rem;
